@@ -1,0 +1,2332 @@
+fmri         svc:/system/vxvm/vxvm-sysboot:default
+name         Veritas Volume Manager(VxVM) Init service.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:07 2012
+alt_logfile  /etc/svc/volatile/system-vxvm-vxvm-sysboot:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/identity:node (online)
+
+fmri         svc:/system/vxvm/vxvm-startvc:default
+name         Veritas Volume Manager(VxVM) Init service.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:57 2012
+logfile      /var/svc/log/system-vxvm-vxvm-startvc:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/vxvm/vxvm-startup2 (online)
+dependency   require_all/none svc:/system/device/fc-fabric (online)
+
+fmri         svc:/system/vxvm/vxvm-startup2:default
+name         Veritas Volume Manager(VxVM) Init service.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:57 2012
+logfile      /var/svc/log/system-vxvm-vxvm-startup2:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/vxvm/vxvm-startup1 (online)
+dependency   require_all/none svc:/system/device/fc-fabric (online)
+
+fmri         svc:/system/vxvm/vxvm-startup1:default
+name         Veritas Volume Manager(VxVM) Init service.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:09 2012
+alt_logfile  /etc/svc/volatile/system-vxvm-vxvm-startup1:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/vxvm/vxvm-sysboot (online)
+dependency   require_all/none svc:/system/filesystem/root (online)
+
+fmri         svc:/system/vxvm/vxvm-recover:default
+name         Veritas Volume Manager(VxVM) Init service.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:55 2012
+logfile      /var/svc/log/system-vxvm-vxvm-recover:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/multi-user (online)
+
+fmri         svc:/system/vxvm/vxvm-reconfig:default
+name         Veritas Volume Manager(VxVM) Init service.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:57 2012
+logfile      /var/svc/log/system-vxvm-vxvm-reconfig:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/vxvm/vxvm-startup2 (online)
+
+fmri         svc:/system/boot-config:default
+name         Boot Configuration Management
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:55 2012
+logfile      /var/svc/log/system-boot-config:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/system/manifest-import:default (online)
+dependency   optional_all/none svc:/milestone/multi-user (online)
+
+fmri         svc:/system/hotplug:default
+name         hotplug daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/device/local (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+
+fmri         svc:/network/sendmail-client:default
+name         sendmail SMTP client queue runner
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/refresh file://localhost/etc/mail/submit.cf (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/network/service (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+dependency   optional_all/refresh svc:/system/identity:domain (online)
+dependency   optional_all/none svc:/system/system-log (online)
+
+fmri         svc:/application/management/common-agent-container-1:default
+name         Cacao, a common Java container for JDMK/JMX based management solution
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/network/initial (online)
+dependency   require_all/none svc:/milestone/multi-user (online)
+
+fmri         svc:/application/sthwreg:default
+name         Hardware Service Tag Collector
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:56 2012
+logfile      /var/svc/log/application-sthwreg:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+dependency   optional_all/none svc:/network/nfs/mapid (online)
+dependency   optional_all/none svc:/application/stosreg (online)
+
+fmri         svc:/application/stosreg:default
+name         Service Tag OS Registry Inserter
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:56 2012
+logfile      /var/svc/log/application-stosreg:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+dependency   optional_all/none svc:/network/nfs/mapid (online)
+dependency   require_all/error svc:/milestone/multi-user:default (online)
+
+fmri         svc:/network/stlisten:default
+name         Service Tag Discovery Listener
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/stdiscover:default
+name         Service Tag discovery probe
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/application/psncollector:default
+name         Product Serial Number Collector
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:02 2012
+logfile      /var/svc/log/application-psncollector:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+
+fmri         svc:/system/prepatch:default
+name         Pre-patch service for Automated Patching Tools
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/single-user (online)
+
+fmri         svc:/system/patchchk:default
+name         Launcher for Automatic Patching services
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:33 2012
+logfile      /var/svc/log/system-patchchk:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr (online)
+dependency   optional_all/none svc:/system/manifest-import (online)
+
+fmri         svc:/network/iscsi/initiator:default
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/network-iscsi-initiator:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  41 
+dependency   require_all/none svc:/network/service (online)
+dependency   require_any/error svc:/network/loopback (online)
+dependency   require_any/error svc:/milestone/network (online)
+
+fmri         svc:/milestone/patching:default
+name         Patching milestone
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/prepatch:default (disabled)
+
+fmri         svc:/system/pkgserv:default
+name         Flush package command database to disk (see pkgadm(1m)).
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:25 2012
+logfile      /var/svc/log/system-pkgserv:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none file://localhost/usr/sadm/install/bin/pkgserv (online)
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/application/management/sunmcplatform:default
+name         SunMC platform agent service
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/network/initial (online)
+
+fmri         svc:/application/management/sunmcagent:default
+name         SunMC agent service
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:33 2012
+logfile      /var/svc/log/application-management-sunmcagent:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  58 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/network/initial (online)
+
+fmri         svc:/system/boot-archive-update:default
+name         update boot archive if necessary
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:00 2012
+logfile      /var/svc/log/system-boot-archive-update:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+
+fmri         svc:/network/ipsec/policy:default
+name         IPsec policy initialization
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/network-ipsec-policy:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/network/ipsec/ipsecalgs (online)
+
+fmri         svc:/network/ipsec/manual-key:default
+name         manually keyed IPsec startup
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/network/ipsec/ipsecalgs (online)
+
+fmri         svc:/network/ipsec/ipsecalgs:default
+name         IPsec algorithm initialization
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/network-ipsec-ipsecalgs:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/cryptosvc (online)
+dependency   require_all/none file://localhost/etc/inet/ipsecalgs (online)
+
+fmri         svc:/network/ipsec/ike:default
+name         IKE daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/network/ipsec/ipsecalgs (online)
+
+fmri         svc:/network/shares/group:default
+name         Share Group
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:01 2012
+logfile      /var/svc/log/network-shares-group:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/system/filesystem/local (online)
+dependency   require_any/error svc:/milestone/network (online)
+
+fmri         svc:/network/bpjava-msvc/tcp:default
+name         bpjava-msvc
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/vopied/tcp:default
+name         vopied
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/vnetd/tcp:default
+name         vnetd
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/bpcd/tcp:default
+name         bpcd
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/application/x11/xvnc-inetd:default
+name         X server that displays to VNC viewers
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/system/vxfs/vxfsldlic:default
+name         VERITAS File System (VxFS) licensed feature enablement.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:02 2012
+logfile      /var/svc/log/system-vxfs-vxfsldlic:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+
+fmri         svc:/application/print/ppd-cache-update:default
+name         ppd cache update
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:25 2012
+logfile      /var/svc/log/application-print-ppd-cache-update:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/network/rpc-100235_1/rpc_ticotsord:default
+name         100235
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/system/picl:default
+name         platform information and control
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:27 2012
+logfile      /var/svc/log/system-picl:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  36 
+dependency   require_all/none svc:/system/sysevent (online) svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/system/identity:node (online)
+
+fmri         svc:/system/basicreg:default
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:34:00 2012
+logfile      /var/svc/log/system-basicreg:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/multi-user-server (online)
+
+fmri         svc:/system/cvc:default
+name         network virtual console
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/network/loopback (online)
+dependency   require_all/none svc:/system/cryptosvc (online)
+dependency   require_all/none svc:/system/identity:node (online)
+dependency   require_all/none svc:/system/filesystem/usr (online)
+dependency   optional_all/none svc:/platform/sun4u/sckmd (online)
+
+fmri         svc:/system/sar:default
+name         system activity reporting package
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:25 2012
+logfile      /var/svc/log/system-sar:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/iscsitgt:default
+name         iSCSI Target
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/multi-user (online)
+
+fmri         svc:/system/pools:default
+name         resource pools framework
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-pools:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/pools/dynamic:default
+name         dynamic resource pools
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:07 2012
+logfile      /var/svc/log/system-pools-dynamic:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  59 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/system/pools:default (online)
+
+fmri         svc:/system/rcap:default
+name         resource capping daemon
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/system-rcap:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  39 
+dependency   optional_all/none svc:/system/resource-mgmt (online)
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/resource-mgmt:default
+name         Global zone resource management settings
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:25 2012
+logfile      /var/svc/log/system-resource-mgmt:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   optional_all/none svc:/system/scheduler (online)
+dependency   optional_all/none svc:/system/pools (online)
+
+fmri         svc:/system/webconsole:console
+name         java web console
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/network (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/system/filesystem/autofs (online) svc:/network/nfs/client (online)
+dependency   require_all/none svc:/system/system-log (online)
+
+fmri         svc:/system/power:default
+name         power management
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-power:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/mdmonitor:default
+name         SVM monitor
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:21 2012
+logfile      /var/svc/log/system-mdmonitor:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/system/metainit (online)
+dependency   optional_all/none svc:/network/rpc/meta (online)
+
+fmri         svc:/system/patch-finish:delete
+name         patch-finish
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+
+fmri         svc:/system/installupdates:default
+name         system update installer
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+alt_logfile  /etc/svc/volatile/system-installupdates:default.log
+restarter    svc:/system/svc/restarter:default
+
+fmri         svc:/system/sysevent:default
+name         system event notification
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-sysevent:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  22 
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/scheduler:default
+name         default scheduling class configuration
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:08 2012
+alt_logfile  /etc/svc/volatile/system-scheduler:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/root (online)
+
+fmri         svc:/system/dumpadm:default
+name         system crash dump configuration
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:21 2012
+logfile      /var/svc/log/system-dumpadm:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/system/filesystem/autofs (online) svc:/network/nfs/client (online)
+
+fmri         svc:/system/system-log:default
+name         system log
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:21 2012
+logfile      /var/svc/log/system-system-log:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  81 
+dependency   require_all/none svc:/milestone/sysconfig (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/system/filesystem/autofs (online)
+dependency   require_all/none svc:/milestone/name-services (online)
+
+fmri         svc:/system/sac:default
+name         SAF service access controller
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:15 2012
+logfile      /var/svc/log/system-sac:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  75 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/sysconfig (online)
+
+fmri         svc:/system/rmtmpfiles:default
+name         remove temporary files
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-rmtmpfiles:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/name-service-cache:default
+name         name service cache
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-name-service-cache:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  28 
+dependency   require_all/restart file://localhost/etc/nsswitch.conf (online) file://localhost/etc/nscd.conf (online)
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/keymap:default
+name         keyboard defaults
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:11 2012
+alt_logfile  /etc/svc/volatile/system-keymap:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr (online)
+
+fmri         svc:/system/cryptosvc:default
+name         cryptographic services
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-cryptosvc:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  23 
+dependency   require_all/none svc:/system/filesystem/minimal:default (online)
+
+fmri         svc:/system/cron:default
+name         clock daemon (cron)
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:01 2012
+logfile      /var/svc/log/system-cron:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  56 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/name-services (online)
+
+fmri         svc:/system/coreadm:default
+name         system-wide core file configuration
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-coreadm:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/consadm:default
+name         console monitoring
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/auditd:default
+name         Solaris audit daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/name-services (online)
+dependency   require_all/none svc:/system/system-log (online)
+
+fmri         svc:/system/filesystem/autofs:default
+name         automounter
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:20 2012
+logfile      /var/svc/log/system-filesystem-autofs:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  79 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/restart svc:/milestone/name-services (online)
+dependency   optional_all/none svc:/network/nfs/client (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/system/filesystem/volfs:default
+name         Volume Management filesystem
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+logfile      /var/svc/log/system-filesystem-volfs:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  80 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/network/rpc/smserver (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/system/device/fc-fabric:default
+name         Solaris FC fabric device configuration.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/system-device-fc-fabric:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/sysevent (online)
+
+fmri         svc:/system/device/mpxio-upgrade:default
+name         Multipath upgrade
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/system/metainit (online)
+dependency   optional_all/none svc:/system/vxvm/vxvm-sysboot (online)
+
+fmri         svc:/platform/sun4v/efdaemon:default
+name         embedded FCode interpreter
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:16 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/single-user:default (online)
+
+fmri         svc:/platform/sun4u/efdaemon:default
+name         embedded FCode interpreter
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:58 2012
+logfile      /var/svc/log/platform-sun4u-efdaemon:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  50 
+dependency   require_all/none svc:/milestone/single-user:default (online)
+
+fmri         svc:/platform/sun4u/oplhpd:default
+name         SPARC-Enterprise hot-plug daemon
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/platform-sun4u-oplhpd:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  35 
+dependency   require_all/none file://localhost/usr/platform/SUNW,SPARC-Enterprise/lib/sparcv9/oplhpd (online)
+dependency   require_all/none svc:/system/sysevent (online)
+
+fmri         svc:/platform/sun4u/sf880drd:default
+name         SunFire-880 dynamic reconfiguration
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/sysconfig (online)
+
+fmri         svc:/platform/sun4u/sckmd:default
+name         key management daemon
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:01 2012
+logfile      /var/svc/log/platform-sun4u-sckmd:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  51 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/system/cryptosvc (online)
+dependency   require_all/none svc:/milestone/network (online)
+dependency   require_all/none svc:/network/ipsec/ipsecalgs (online)
+
+fmri         svc:/system/fmd:default
+name         Solaris Fault Manager
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:29 2012
+logfile      /var/svc/log/system-fmd:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  89 
+dependency   optional_all/none svc:/platform/sun4u/dscp (online)
+dependency   require_all/none file://localhost/usr/lib/fm/fmd/fmd (online)
+dependency   require_all/none svc:/system/sysevent (online) svc:/system/filesystem/minimal (online) svc:/system/dumpadm (online)
+dependency   optional_all/none svc:/network/rpc/bind (online)
+
+fmri         svc:/platform/sun4u/dcs:default
+name         domain configuration server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:08 2012
+logfile      /var/svc/log/platform-sun4u-dcs:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  65 
+dependency   optional_all/none svc:/platform/sun4u/dscp (online)
+dependency   require_all/none svc:/network/loopback (online)
+dependency   require_all/none svc:/system/cryptosvc (online)
+dependency   require_all/none svc:/system/filesystem/usr (online)
+dependency   require_all/none svc:/system/identity:node (online)
+dependency   optional_all/none svc:/platform/sun4u/sckmd (online)
+
+fmri         svc:/platform/sun4u/dscp:default
+name         DSCP Service
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:07 2012
+logfile      /var/svc/log/platform-sun4u-dscp:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  63 
+dependency   require_any/error svc:/milestone/network (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/platform/sun4u/sckmd:default (online)
+
+fmri         svc:/network/ssh:default
+name         SSH server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:22 2012
+logfile      /var/svc/log/network-ssh:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  82 
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/system/filesystem/autofs (online)
+dependency   require_all/none svc:/network/loopback (online)
+dependency   require_all/none svc:/network/physical (online)
+dependency   require_all/none svc:/system/cryptosvc (online)
+dependency   require_all/none svc:/system/utmp (online)
+dependency   require_all/restart file://localhost/etc/ssh/sshd_config (online)
+
+fmri         svc:/network/smtp:sendmail
+name         sendmail SMTP mail transfer agent
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/refresh file://localhost/etc/mail/sendmail.cf (online)
+dependency   require_all/refresh file://localhost/etc/nsswitch.conf (online)
+dependency   optional_all/none svc:/system/filesystem/autofs (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/network/service (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+dependency   optional_all/refresh svc:/system/identity:domain (online)
+dependency   optional_all/none svc:/system/system-log (online)
+
+fmri         svc:/network/slp:default
+name         Service Location Protocol (SLP)
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error file://localhost/etc/inet/slp.conf (absent)
+dependency   require_any/error svc:/network/loopback (online)
+dependency   optional_all/error svc:/milestone/network (online)
+dependency   require_all/none svc:/milestone/sysconfig (online)
+
+fmri         svc:/network/talk:default
+name         talk
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/shell:kshell
+name         rsh
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_any/error svc:/network/loopback (online)
+dependency   optional_all/error svc:/milestone/network (online)
+
+fmri         svc:/network/shell:default
+name         rsh
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_any/error svc:/network/loopback (online)
+dependency   optional_all/error svc:/milestone/network (online)
+
+fmri         svc:/network/rexec:default
+name         rexec
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/login:rlogin
+name         remote login
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/login:klogin
+name         remote login
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/login:eklogin
+name         remote login
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/finger:default
+name         finger
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/comsat:default
+name         comsat
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/ntp:default
+name         Network Time Protocol (NTP)
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:09 2012
+logfile      /var/svc/log/network-ntp:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  64 
+dependency   optional_all/none svc:/platform/sun4u/dscp (online)
+dependency   require_all/error file://localhost/usr/sbin/ntpq (online) file://localhost/usr/sbin/ntpdate (online)
+dependency   require_any/error svc:/network/service (online)
+dependency   optional_all/error svc:/milestone/name-services (online)
+
+fmri         svc:/network/ftp:default
+name         FTP server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/time:stream
+name         time
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/time:dgram
+name         time
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/echo:stream
+name         echo
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/echo:dgram
+name         echo
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/discard:stream
+name         discard
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/discard:dgram
+name         discard
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/daytime:stream
+name         daytime
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/daytime:dgram
+name         daytime
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/chargen:stream
+name         character generator
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/chargen:dgram
+name         character generator
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/uucp:default
+name         UUCP server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/apocd/udp:default
+name         Configuration Agent
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+
+fmri         svc:/network/http:apache2
+name         Apache 2 HTTP server
+enabled      true
+state        maintenance
+next_state   none
+state_time   Sun Sep 02 10:33:21 2012
+logfile      /var/svc/log/network-http:apache2.log
+restarter    svc:/system/svc/restarter:default
+contract_id  
+dependency   require_all/error svc:/milestone/network:default (online)
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+dependency   optional_all/error svc:/system/filesystem/autofs:default (online)
+
+fmri         svc:/network/dhcp-server:default
+name         DHCP server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/refresh svc:/milestone/multi-user (online)
+dependency   require_all/restart file:///etc/inet/dhcpsvc.conf (absent)
+
+fmri         svc:/network/rarp:default
+name         Reverse Address Resolution Protocol (RARP) server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error file://localhost/etc/nsswitch.conf (online)
+dependency   require_any/error svc:/network/loopback (online)
+dependency   optional_all/error svc:/milestone/network (online)
+dependency   require_all/none svc:/system/system-log (online)
+
+fmri         svc:/network/nis/xfr:default
+name         NIS (YP) transfer daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/nis/update:default
+name         NIS (YP) update daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/nis/server:default
+name         NIS (YP) server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_all/none svc:/system/identity:domain (online)
+
+fmri         svc:/network/nis/passwd:default
+name         NIS (YP) password daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/nis/client:default
+name         NIS (YP) client
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_all/none svc:/system/identity:domain (online)
+dependency   optional_all/none svc:/network/nis/server (disabled)
+
+fmri         svc:/network/ipmievd:default
+name         IPMI event daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr:default (online)
+dependency   require_all/none svc:/system/system-log:default (online)
+
+fmri         svc:/network/nfs/server:default
+name         NFS server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_any/error svc:/milestone/network (online)
+dependency   require_all/error svc:/network/nfs/nlockmgr (online)
+dependency   optional_all/error svc:/network/nfs/mapid (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   optional_all/none svc:/network/rpc/keyserv (disabled)
+dependency   optional_all/none svc:/network/rpc/gss (online)
+dependency   require_all/error svc:/system/filesystem/local (online)
+
+fmri         svc:/network/nfs/rquota:default
+name         remote quota server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/nfs/status:default
+name         NFS status monitor
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:14 2012
+logfile      /var/svc/log/network-nfs-status:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  67 
+dependency   require_any/error svc:/milestone/network (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_all/error svc:/system/filesystem/local (online)
+
+fmri         svc:/network/nfs/nlockmgr:default
+name         NFS lock manager
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:15 2012
+logfile      /var/svc/log/network-nfs-nlockmgr:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  71 
+dependency   require_any/error svc:/milestone/network (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_all/error svc:/network/nfs/status (online)
+dependency   require_all/error svc:/system/filesystem/minimal (online)
+
+fmri         svc:/network/nfs/mapid:default
+name         NFS ID mapper
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:14 2012
+logfile      /var/svc/log/network-nfs-mapid:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  68 
+dependency   require_any/error svc:/milestone/network (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+dependency   require_all/error svc:/system/filesystem/minimal (online)
+
+fmri         svc:/network/nfs/client:default
+name         NFS client
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+logfile      /var/svc/log/network-nfs-client:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_any/error svc:/milestone/network (online)
+dependency   require_all/error svc:/network/nfs/nlockmgr (online)
+dependency   optional_all/error svc:/network/nfs/cbd (online)
+dependency   optional_all/error svc:/network/nfs/mapid (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   optional_all/none svc:/network/rpc/keyserv (disabled)
+dependency   optional_all/none svc:/network/rpc/gss (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+
+fmri         svc:/network/nfs/cbd:default
+name         NFS callback service
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:14 2012
+logfile      /var/svc/log/network-nfs-cbd:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  70 
+dependency   require_any/error svc:/milestone/network (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+dependency   require_all/error svc:/system/filesystem/minimal (online)
+
+fmri         svc:/network/telnet:default
+name         Telnet server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/tname:default
+name         trivial name server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/cde-spc:default
+name         CDE subprocess control
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_any/none svc:/network/physical (online) svc:/network/loopback (online)
+
+fmri         svc:/network/wins:default
+name         MS Win. domain naming daemon
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:02 2012
+logfile      /var/svc/log/network-wins:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  60 
+dependency   require_any/none svc:/network/loopback (online)
+dependency   require_all/none svc:/network/service (online)
+dependency   require_all/none svc:/network/physical (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+
+fmri         svc:/network/winbind:default
+name         MS Win. domain naming daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_any/none svc:/network/loopback (online)
+dependency   require_all/none svc:/network/service (online)
+dependency   require_all/none svc:/network/physical (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+
+fmri         svc:/network/swat:default
+name         swat
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/samba:default
+name         SMB file server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:02 2012
+logfile      /var/svc/log/network-samba:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  52 
+dependency   require_any/none svc:/network/loopback (online)
+dependency   require_all/none svc:/network/service (online)
+dependency   require_all/none svc:/network/physical (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+
+fmri         svc:/network/security/krb5_prop:default
+name         Kerberos propagation daemon for slave KDCs
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/security/ktkt_warn:default
+name         Kerberos V5 warning messages daemon
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/network/security/krb5kdc:default
+name         Kerberos key distribution center
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/network/dns/client (online)
+
+fmri         svc:/network/security/kadmin:default
+name         Kerberos administration daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/network/dns/client (online)
+
+fmri         svc:/system/sysidtool:system
+name         sysidtool
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:14 2012
+logfile      /var/svc/log/system-sysidtool:system.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/single-user:default (online)
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+dependency   require_all/none svc:/system/sysidtool:net (online)
+dependency   optional_all/none svc:/network/rpc/bind:default (online)
+dependency   require_all/none svc:/system/filesystem/minimal:default (online)
+dependency   require_all/none svc:/system/identity:node (online) svc:/system/identity:domain (online)
+
+fmri         svc:/system/sysidtool:net
+name         sysidtool
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:01 2012
+logfile      /var/svc/log/system-sysidtool:net.log
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/network/pfil (online)
+dependency   require_all/none svc:/milestone/single-user:default (online)
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+dependency   require_all/none svc:/system/filesystem/minimal:default (online)
+dependency   require_all/none svc:/system/identity:node (online) svc:/system/identity:domain (online)
+
+fmri         svc:/network/pfil:default
+name         packet filter
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+alt_logfile  /etc/svc/volatile/network-pfil:default.log
+restarter    svc:/system/svc/restarter:default
+
+fmri         svc:/network/service:default
+name         layered network services
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/network-service:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/network/initial (online)
+dependency   optional_all/none svc:/network/rpc/nisplus (disabled)
+dependency   optional_all/none svc:/network/nis/server (disabled)
+dependency   optional_all/none svc:/network/nis/client (disabled)
+
+fmri         svc:/network/routing-setup:default
+name         Initial routing-related configuration.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:13 2012
+logfile      /var/svc/log/network-routing-setup:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/milestone/network (online)
+dependency   require_all/none svc:/system/filesystem/usr (online)
+dependency   require_all/none svc:/milestone/devices (online)
+dependency   optional_all/none svc:/system/manifest-import:default (online)
+
+fmri         svc:/network/ipfilter:default
+name         IP Filter
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/restart file://localhost/etc/ipf/ipf.conf (online)
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/restart svc:/network/pfil (online)
+dependency   require_all/restart svc:/network/physical (online)
+dependency   require_all/restart svc:/system/identity:node (online)
+
+fmri         svc:/network/inetd:default
+name         inetd
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:16 2012
+logfile      /var/svc/log/network-inetd:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  73 
+dependency   require_any/error svc:/network/loopback (online)
+dependency   require_all/error svc:/system/filesystem/local (online)
+dependency   optional_all/error svc:/milestone/network (online)
+dependency   optional_all/error svc:/network/rpc/bind (online)
+dependency   optional_all/none svc:/network/inetd-upgrade (disabled)
+dependency   require_all/none svc:/milestone/sysconfig (online) svc:/milestone/name-services (online)
+
+fmri         svc:/network/ipv6-forwarding:default
+name         IPv6 forwarding service
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/network/loopback (online)
+dependency   require_all/error svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/devices (online)
+
+fmri         svc:/network/ipv4-forwarding:default
+name         IPv4 forwarding service
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/network/loopback (online)
+dependency   require_all/error svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/devices (online)
+
+fmri         svc:/network/rpc/wall:default
+name         network rwall server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/spray:default
+name         RPC spray
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/rusers:default
+name         network user name service
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/rstat:default
+name         kernel statistics server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/bootparams:default
+name         boot parameter server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/network (online)
+dependency   require_all/refresh svc:/milestone/name-services (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/rex:default
+name         remote execution server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/nisplus:default
+name         NIS+
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/network/rpc/keyserv (disabled)
+
+fmri         svc:/network/rpc/metamh:default
+name         SVM remote multihost disk services
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/error svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/metamed:default
+name         SVM remote mediator services
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/error svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/meta:default
+name         SVM remote metaset services
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+contract_id  91 
+dependency   require_all/error svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/mdcomm:default
+name         SVM multi-node communications
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/error svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/smserver:default
+name         removable media management
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/ocfserv:default
+name         OpenCard Framework (OCF) communications
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+
+fmri         svc:/network/rpc/cde-ttdbserver:tcp
+name         ToolTalk database server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_any/none svc:/network/physical (online) svc:/network/loopback (online)
+
+fmri         svc:/network/rpc/cde-calendar-manager:default
+name         CDE calendar manager server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_any/none svc:/network/physical (online) svc:/network/loopback (online)
+
+fmri         svc:/network/rpc/gss:default
+name         Generic Security Service
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   optional_all/none svc:/network/rpc/keyserv (disabled)
+
+fmri         svc:/network/rpc/keyserv:default
+name         RPC encryption key storage
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/restart svc:/network/rpc/bind (online)
+dependency   require_all/restart svc:/system/identity:domain (online)
+
+fmri         svc:/network/routing/bgp:quagga
+name         Quagga: bgpd, BGP routing protocol daemon.
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr:default (online)
+dependency   optional_all/refresh svc:/network/ipv6-forwarding (disabled)
+dependency   optional_all/refresh svc:/network/ipv4-forwarding (disabled)
+dependency   require_all/refresh svc:/network/routing-setup (online)
+dependency   optional_all/restart svc:/network/routing/zebra:quagga (disabled)
+
+fmri         svc:/network/routing/ospf6:quagga
+name         Quagga: ospf6d, OSPFv3 IPv6 routing protocol daemon.
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr:default (online)
+dependency   optional_all/refresh svc:/network/ipv6-forwarding (disabled)
+dependency   require_all/refresh svc:/network/routing-setup (online)
+dependency   optional_all/restart svc:/network/routing/zebra:quagga (disabled)
+
+fmri         svc:/network/routing/ospf:quagga
+name         Quagga: ospfd, OSPFv2 IPv4 routing protocol daemon.
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr:default (online)
+dependency   optional_all/refresh svc:/network/ipv4-forwarding (disabled)
+dependency   require_all/refresh svc:/network/routing-setup (online)
+dependency   optional_all/restart svc:/network/routing/zebra:quagga (disabled)
+
+fmri         svc:/network/routing/rip:quagga
+name         Quagga: ripd, RIPv1/2 IPv4 routing protocol daemon.
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr:default (online)
+dependency   optional_all/refresh svc:/network/ipv4-forwarding (disabled)
+dependency   require_all/refresh svc:/network/routing-setup (online)
+dependency   optional_all/restart svc:/network/routing/zebra:quagga (disabled)
+
+fmri         svc:/network/routing/zebra:quagga
+name         Quagga: zebra, RIB, kernel intermediary and misc daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr:default (online)
+dependency   require_all/none svc:/network/initial (online)
+dependency   require_all/refresh svc:/network/routing-setup (online)
+
+fmri         svc:/network/routing/route:default
+name         in.routed network routing daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/refresh svc:/network/routing-setup (online)
+
+fmri         svc:/network/routing/ripng:quagga
+name         Quagga: ripngd, RIPng IPv6 routing protocol daemon.
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr:default (online)
+dependency   optional_all/refresh svc:/network/ipv6-forwarding (disabled)
+dependency   require_all/refresh svc:/network/routing-setup (online)
+dependency   optional_all/restart svc:/network/routing/zebra:quagga (disabled)
+
+fmri         svc:/network/routing/ripng:default
+name         in.ripngd network routing daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/refresh svc:/network/routing-setup (online)
+dependency   require_all/refresh svc:/network/ipv6-forwarding (disabled)
+
+fmri         svc:/network/routing/rdisc:default
+name         in.rdisc network router discovery daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/refresh svc:/network/routing-setup (online)
+
+fmri         svc:/network/routing/ndp:default
+name         in.ndpd IPv6 neighbour discovery daemon
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/refresh svc:/network/routing-setup (online)
+
+fmri         svc:/network/routing/legacy-routing:ipv6
+name         Legacy routing service
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/network/initial (online)
+dependency   require_all/error svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/devices (online)
+
+fmri         svc:/network/routing/legacy-routing:ipv4
+name         Legacy routing service
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/network/initial (online)
+dependency   require_all/error svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/milestone/devices (online)
+
+fmri         svc:/network/ldap/client:default
+name         LDAP client
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/network/initial (online)
+
+fmri         svc:/network/dns/server:default
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_any/error svc:/network/loopback (online)
+dependency   optional_all/error svc:/milestone/network (online)
+
+fmri         svc:/network/dns/client:default
+name         DNS resolver
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/network-dns-client:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/network/service (online)
+dependency   require_all/none file://localhost/etc/resolv.conf (online)
+dependency   require_any/error svc:/network/loopback (online)
+dependency   optional_all/error svc:/milestone/network (online)
+
+fmri         svc:/milestone/sysconfig:default
+name         Basic system configuration milestone
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:15 2012
+logfile      /var/svc/log/milestone-sysconfig:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/single-user (online)
+dependency   optional_all/none svc:/system/sysidtool:system (online)
+dependency   optional_all/none svc:/system/sysidtool:net (online)
+
+fmri         svc:/milestone/network:default
+name         Network milestone
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/milestone-network:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/network/loopback (online)
+dependency   require_all/none svc:/network/physical (online)
+dependency   optional_all/restart svc:/network/ipfilter (disabled)
+dependency   optional_all/none svc:/network/ipsec/ike (disabled)
+dependency   optional_all/none svc:/network/ipsec/ipsecalgs (online)
+dependency   optional_all/none svc:/network/ipsec/manual-key (disabled)
+dependency   optional_all/none svc:/network/ipsec/policy (online)
+
+fmri         svc:/application/gdm2-login:default
+name         GNOME Display Manager
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/system/utmp (online)
+
+fmri         svc:/application/database/postgresql:version_82_64bit
+name         PostgreSQL RDBMS
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/network:default (online)
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+
+fmri         svc:/application/database/postgresql:version_82
+name         PostgreSQL RDBMS
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/network:default (online)
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+
+fmri         svc:/application/database/postgresql:version_81
+name         PostgreSQL RDBMS
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/network:default (online)
+dependency   require_all/none svc:/system/filesystem/local:default (online)
+
+fmri         svc:/application/print/server:default
+name         LP print server
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/system/filesystem/usr (online)
+dependency   require_all/refresh svc:/system/identity:domain (online)
+dependency   optional_all/none svc:/system/system-log (online)
+
+fmri         svc:/application/print/rfc1179:default
+name         BSD print protocol adapter
+enabled      true
+state        offline
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+restarter    svc:/network/inetd:default
+dependency   require_all/refresh svc:/application/print/server (disabled)
+
+fmri         svc:/application/print/ipp-listener:default
+name         Internet Print Protocol Listening Service
+enabled      true
+state        offline
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_any/refresh svc:/application/print/server (disabled)
+
+fmri         svc:/application/cde-printinfo:default
+name         CDE Print Viewer
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:56 2012
+logfile      /var/svc/log/application-cde-printinfo:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/error svc:/milestone/multi-user:default (online)
+
+fmri         svc:/application/management/sma:default
+name         net-snmp SNMP daemon
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:23 2012
+logfile      /var/svc/log/application-management-sma:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  88 
+dependency   require_all/none svc:/milestone/sysconfig (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/milestone/name-services (online)
+dependency   optional_all/none svc:/system/system-log (online)
+dependency   optional_all/none svc:/network/rpc/rstat (disabled)
+dependency   require_all/restart svc:/system/cryptosvc (online)
+dependency   require_all/restart svc:/milestone/network (online)
+dependency   require_all/refresh file://localhost/etc/sma/snmp/snmpd.conf (online)
+
+fmri         svc:/application/management/seaport:default
+name         net-snmp SNMP daemon
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:22 2012
+logfile      /var/svc/log/application-management-seaport:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/sysconfig (online)
+dependency   require_all/restart svc:/milestone/network (online)
+dependency   optional_all/none svc:/milestone/name-services (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/system/system-log (online)
+
+fmri         svc:/application/management/snmpdx:default
+name         Sun Solstice Enterprise Master Agent
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:22 2012
+logfile      /var/svc/log/application-management-snmpdx:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  93 
+dependency   require_all/none svc:/application/management/seaport (online)
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/application/management/dmi:default
+name         Sun Solstice Enterprise DMI
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:23 2012
+logfile      /var/svc/log/application-management-dmi:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  98 
+dependency   require_all/none svc:/application/management/snmpdx (online)
+dependency   require_all/none svc:/network/rpc/bind (online)
+
+fmri         svc:/application/management/webmin:default
+name         Webmin, a httpd based system administration tool.
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:29:15 2012
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/none svc:/network/initial (online)
+
+fmri         svc:/application/management/wbem:default
+name         SMC and WBEM Server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:16 2012
+logfile      /var/svc/log/application-management-wbem:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  74 
+dependency   require_all/error svc:/milestone/sysconfig:default (online)
+
+fmri         svc:/system/zones:default
+name         Zones autoboot and graceful shutdown
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:34:01 2012
+logfile      /var/svc/log/system-zones:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/multi-user-server (online)
+dependency   optional_all/none svc:/system/pools:default (online)
+dependency   optional_all/none svc:/system/pools/dynamic:default (online)
+
+fmri         svc:/application/graphical-login/cde-login:default
+name         CDE login
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:56 2012
+logfile      /var/svc/log/application-graphical-login-cde-login:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  142 
+dependency   require_all/error svc:/milestone/multi-user:default (online)
+dependency   require_all/none svc:/milestone/sysconfig (online)
+dependency   require_all/none svc:/application/font/fc-cache (online)
+
+fmri         svc:/application/font/stfsloader:default
+name         Standard Type Services Framework (STSF) Font Server loader
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/application/font/fc-cache:default
+name         FontConfig Cache Builder
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:08 2012
+logfile      /var/svc/log/application-font-fc-cache:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   require_all/refresh file://localhost/etc/fonts/fonts.conf (online)
+dependency   require_all/none file://localhost/usr/bin/fc-cache (online)
+
+fmri         svc:/application/x11/xfs:default
+name         X Window System font server
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:19 2012
+restarter    svc:/network/inetd:default
+
+fmri         svc:/system/metainit:default
+name         SVM initialization
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:29:24 2012
+alt_logfile  /etc/svc/volatile/system-metainit:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/identity:node (online)
+
+fmri         svc:/system/utmp:default
+name         utmpx monitoring
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:15 2012
+logfile      /var/svc/log/system-utmp:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  72 
+dependency   require_all/none svc:/milestone/sysconfig (online)
+
+fmri         svc:/network/inetd-upgrade:default
+name         inetd-upgrade
+enabled      false
+state        disabled
+next_state   none
+state_time   Sun Sep 02 10:33:18 2012
+logfile      /var/svc/log/network-inetd-upgrade:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/local (online)
+
+fmri         svc:/milestone/multi-user-server:default
+name         multi-user plus exports milestone
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:34:00 2012
+logfile      /var/svc/log/milestone-multi-user-server:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/multi-user (online)
+dependency   optional_all/none svc:/application/management/dmi (online)
+dependency   optional_all/none svc:/application/management/snmpdx (online)
+dependency   optional_all/none svc:/network/rpc/bootparams (disabled)
+dependency   optional_all/none svc:/network/samba (online)
+dependency   optional_all/none svc:/network/winbind (disabled)
+dependency   optional_all/none svc:/network/wins (online)
+dependency   optional_all/none svc:/network/nfs/server (disabled)
+dependency   optional_all/none svc:/network/rarp (disabled)
+dependency   optional_all/none svc:/network/dhcp-server (disabled)
+dependency   optional_all/none svc:/network/ssh (online)
+
+fmri         svc:/system/console-login:default
+name         Console login
+enabled      true
+state        online
+next_state   none
+state_time   Mon Sep 03 13:53:52 2012
+logfile      /var/svc/log/system-console-login:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  11952 
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/system/identity:node (online)
+dependency   require_all/none svc:/system/utmp:default (online)
+dependency   require_all/none svc:/milestone/sysconfig (online)
+dependency   optional_all/none svc:/system/auditd (disabled)
+
+fmri         svc:/network/rpc/bind:default
+name         RPC bindings
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:13 2012
+logfile      /var/svc/log/network-rpc-bind:default.log
+restarter    svc:/system/svc/restarter:default
+contract_id  66 
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/refresh svc:/system/identity:node (online)
+dependency   require_all/none svc:/system/sysidtool:net (online)
+dependency   optional_all/none svc:/network/routing-setup:default (online) svc:/network/initial:default (online)
+
+fmri         svc:/system/filesystem/usr:default
+name         read/write root file systems mounts
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:10 2012
+alt_logfile  /etc/svc/volatile/system-filesystem-usr:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/boot-archive (online)
+dependency   optional_all/none svc:/system/scheduler (online)
+dependency   optional_all/none svc:/system/vxvm/vxvm-startup1 (online)
+
+fmri         svc:/milestone/single-user:default
+name         single-user milestone
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:58 2012
+logfile      /var/svc/log/milestone-single-user:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/identity:node (online)
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/milestone/devices (online)
+dependency   require_all/none svc:/system/manifest-import (online)
+dependency   require_any/none svc:/network/loopback (online)
+dependency   optional_all/none svc:/milestone/network (online)
+dependency   optional_all/none svc:/system/metainit (online)
+dependency   optional_all/none svc:/system/cryptosvc (online)
+dependency   optional_all/none svc:/system/keymap (online)
+dependency   require_all/none svc:/system/sysevent (online)
+dependency   optional_all/none svc:/system/installupdates (online)
+dependency   optional_all/none svc:/system/patchchk (online)
+dependency   optional_all/none svc:/system/vxvm/vxvm-sysboot (online)
+dependency   require_all/none svc:/system/picl (online)
+
+fmri         svc:/system/filesystem/root:default
+name         root file system mount
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:08 2012
+alt_logfile  /etc/svc/volatile/system-filesystem-root:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/system/metainit (online)
+dependency   optional_all/none svc:/system/device/mpxio-upgrade (disabled)
+dependency   optional_all/none svc:/system/vxvm/vxvm-sysboot (online)
+
+fmri         svc:/system/svc/restarter:default
+name         master restarter
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:29:13 2012
+alt_logfile  /etc/svc/volatile/svc.startd.log
+logfile      /var/svc/log/svc.startd.log
+restarter    svc:/system/svc/restarter:default
+contract_id  4 
+
+fmri         svc:/network/physical:default
+name         physical network interfaces
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:29:24 2012
+alt_logfile  /etc/svc/volatile/network-physical:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/network/loopback (online)
+dependency   optional_all/none svc:/network/pfil (online)
+
+fmri         svc:/network/loopback:default
+name         loopback network interface
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:29:14 2012
+alt_logfile  /etc/svc/volatile/network-loopback:default.log
+restarter    svc:/system/svc/restarter:default
+
+fmri         svc:/network/initial:default
+name         initial network services
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/network-initial:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/milestone/network (online)
+dependency   require_all/none svc:/system/filesystem/usr (online)
+dependency   optional_all/none svc:/system/cryptosvc (online)
+
+fmri         svc:/milestone/name-services:default
+name         name services milestone
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:26 2012
+logfile      /var/svc/log/milestone-name-services:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   optional_all/none svc:/network/dns/client (online)
+dependency   optional_all/none svc:/network/ldap/client (disabled)
+dependency   optional_all/none svc:/network/nis/client (disabled)
+dependency   optional_all/none svc:/network/rpc/nisplus (disabled)
+
+fmri         svc:/milestone/multi-user:default
+name         multi-user milestone
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:33:54 2012
+logfile      /var/svc/log/milestone-multi-user:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/sysconfig (online) svc:/milestone/single-user (online) svc:/milestone/name-services (online)
+dependency   require_all/none svc:/system/filesystem/local (online)
+dependency   optional_all/none svc:/platform/i86pc/kdmconfig:default (absent)
+dependency   optional_all/none svc:/network/rpc/bind (online)
+dependency   optional_all/none svc:/system/system-log (online)
+dependency   optional_all/none svc:/system/utmp (online)
+dependency   optional_all/none svc:/application/print/server (disabled)
+dependency   optional_all/none svc:/network/inetd (online)
+dependency   optional_all/none svc:/network/nfs/client (online)
+dependency   optional_all/none svc:/network/ntp (online)
+dependency   optional_all/none svc:/network/smtp:sendmail (disabled)
+dependency   optional_all/none svc:/platform/sun4u/sf880drd (disabled)
+dependency   optional_all/none svc:/system/filesystem/autofs (online)
+dependency   optional_all/none svc:/system/auditd (disabled)
+dependency   optional_all/none svc:/system/cron (online)
+dependency   optional_all/none svc:/system/name-service-cache (online)
+dependency   require_all/none svc:/system/rmtmpfiles (online)
+dependency   optional_all/none svc:/system/system-log (online)
+dependency   optional_all/none svc:/system/patch-finish:delete (disabled)
+dependency   optional_all/none svc:/system/mdmonitor (online)
+dependency   optional_all/none svc:/system/power (online)
+dependency   optional_all/none svc:/system/rcap (online)
+dependency   require_all/none svc:/system/vxfs/vxfsldlic (online)
+dependency   optional_all/none svc:/network/iscsi/initiator (online)
+
+fmri         svc:/system/filesystem/minimal:default
+name         minimal file system mounts
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:23 2012
+alt_logfile  /etc/svc/volatile/system-filesystem-minimal:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr (online)
+dependency   require_all/none svc:/system/device/local (online)
+dependency   optional_all/none svc:/system/vxvm/vxvm-startup1 (online)
+
+fmri         svc:/system/manifest-import:default
+name         service manifest import
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:33 2012
+logfile      /var/svc/log/system-manifest-import:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+
+fmri         svc:/system/filesystem/local:default
+name         local file system mounts
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:59 2012
+logfile      /var/svc/log/system-filesystem-local:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/milestone/single-user (online)
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_all/none svc:/system/vxvm/vxvm-reconfig (online)
+
+fmri         svc:/system/identity:node
+name         system identity (nodename)
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:29:24 2012
+alt_logfile  /etc/svc/volatile/system-identity:node.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_any/none svc:/network/loopback (online)
+dependency   optional_all/none svc:/network/physical (online)
+
+fmri         svc:/system/identity:domain
+name         system identity (domainname)
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:24 2012
+logfile      /var/svc/log/system-identity:domain.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/minimal (online)
+dependency   require_any/none svc:/network/loopback (online)
+dependency   optional_all/none svc:/network/physical (online)
+
+fmri         svc:/milestone/devices:default
+name         device configuration milestone
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:57 2012
+logfile      /var/svc/log/milestone-devices:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/device/local (online)
+dependency   require_all/none svc:/system/device/fc-fabric (online)
+dependency   require_all/none svc:/system/vxvm/vxvm-startup2 (online)
+dependency   require_all/none svc:/system/vxvm/vxvm-startvc (online)
+
+fmri         svc:/system/device/local:default
+name         Standard Solaris device configuration.
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:22 2012
+alt_logfile  /etc/svc/volatile/system-device-local:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/usr (online)
+
+fmri         svc:/system/boot-archive:default
+name         check boot archive content
+enabled      true
+state        online
+next_state   none
+state_time   Sun Sep 02 10:32:09 2012
+alt_logfile  /etc/svc/volatile/system-boot-archive:default.log
+restarter    svc:/system/svc/restarter:default
+dependency   require_all/none svc:/system/filesystem/root (online)
