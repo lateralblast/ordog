@@ -1,5 +1,5 @@
 svcg
-===-
+====
 
 Solaris ServiCe dependeny Graph
 
