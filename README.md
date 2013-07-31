@@ -1,7 +1,7 @@
-svcg
+ssdg
 ====
 
-Solaris Service Dependeny Graph
+Solaris Service Dependency Graph
 
 Ruby script to graph service dependencies for online/enabled services
 
